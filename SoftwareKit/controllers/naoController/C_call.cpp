@@ -25,7 +25,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
 	if (!strcmp(method, "S_goDown")) {
 		int time = (int) mxGetScalar(prhs[2]);
 		float height = (float) mxGetScalar(prhs[1]);
-		Sample::goDown(heigth, time);
+		Sample::goDown(height, time);
 	}
    
     
