@@ -1,0 +1,1 @@
+\form#0:\begin{align*} \begin{bmatrix} rotM & posV \\ 0 & 1 \end{bmatrix} \end{align*}

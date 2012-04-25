@@ -1,0 +1,25 @@
+#pragma once
+#include <vector>
+#include <string>
+
+class Alias
+{
+public:
+	enum enumAlias{
+		JOINT_ACTUATOR_BODY, JOINT_ACTUATOR_L_LEG, JOINT_ACTUATOR_R_LEG,
+		JOINT_ACTUATOR_L_ARM, JOINT_ACTUATOR_R_ARM, JOINT_ACTUATOR_HEAD,
+		JOINT_HARDNESS_BODY, JOINT_HARDNESS_L_LEG, JOINT_HARDNESS_R_LEG,
+		JOINT_HARDNESS_L_ARM, JOINT_HARDNESS_R_ARM, JOINT_HARDNESS_HEAD,
+		ALIAS_MAX
+	};
+
+	static void init();
+
+	static std::string aliasName(const int& index);
+
+	static std::vector<std::string> alias(const int& index);
+
+private:
+
+	static std::vector<std::vector<std::string> > aliases;
+};

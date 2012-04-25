@@ -1,0 +1,49 @@
+#VRML_SIM V6.0 utf8
+WorldInfo {
+  info [
+    "Soccer Field for Naos"
+    "Yvan Bourquin - www.cyberbotics.com"
+    "Date: 20 January 2010"
+  ]
+  title "NaoSoccer"
+  basicTimeStep 10
+  displayRefresh 1
+  runRealTime TRUE
+}
+Viewpoint {
+  orientation 0.0720228 -0.987165 -0.142539 4.07679
+  position -1.06826 0.820732 -1.12762
+  follow "webots1"
+}
+Background {
+  skyColor [
+    0.435294 0.4 0.317647
+  ]
+}
+SoccerField {
+}
+Nao_H25_V33 {
+  translation -2.5 0.34 0
+  color 0 0 0
+  controller "naoController"
+}
+Goal {
+  translation 3 0 0
+  postColor 1 1 0
+}
+PointLight {
+  location -3 2 0
+}
+PointLight {
+  location 3 2 0
+}
+Goal {
+  translation -3 0 0
+  rotation 0 1 0 3.14
+  postColor 0 0.501961 0.752941
+}
+Walls {
+}
+Ball {
+  translation -3 0.032473 0
+}

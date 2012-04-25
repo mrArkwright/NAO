@@ -1,0 +1,19 @@
+#pragma once
+
+#include "Definitions/robotConstants.h"
+#include <vector>
+
+class Poses
+{
+public:
+	enum ENUM_POSE{
+		HOME,
+		TAKE_AWAY,
+		POSE_MAX
+	};
+
+	static std::vector<float>getPose(const int& index);
+
+private:
+	const static char* poseFiles[POSE_MAX];
+};

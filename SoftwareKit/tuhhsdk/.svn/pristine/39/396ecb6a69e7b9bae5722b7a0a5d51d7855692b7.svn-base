@@ -1,0 +1,42 @@
+#pragma once
+
+#include "Modules/DcmConnector.h"
+#include "Definitions/keys.h"
+
+#ifndef WEBOTS
+
+#include <boost/signal.hpp>
+#include <boost/bind.hpp>
+
+#endif
+
+class TUHH
+{
+public:
+	static void init();
+
+	static void cycle();
+
+	static void stopCycle();
+
+private:
+	// joint information
+	static float* jointActuator[keys::joints::JOINTS_MAX];
+	static float* jointSensor[keys::joints::JOINTS_MAX];
+	static float* jointHardness[keys::joints::JOINTS_MAX];
+	static float* jointCurrent[keys::joints::JOINTS_MAX];
+	static float* jointTemperature[keys::joints::JOINTS_MAX];
+
+	// sensor information
+	static float* switches[keys::sensor::SWITCH_MAX];
+	static float* imu[keys::sensor::IMU_MAX];
+	static float* fsrLeft[keys::sensor::FSR_MAX];
+	static float* fsrRight[keys::sensor::FSR_MAX];
+	static float* sonar[keys::sensor::SONAR_MAX];
+	static float* battery[keys::sensor::BATTERY_MAX];
+
+#ifndef WEBOTS
+	static boost::signals::connection cycleConnection;
+#endif
+};
+
