@@ -34,6 +34,9 @@ while wb_robot_step(TIME_STEP) ~= -1
     
     pre_cycle;
     
+	if (time >= 4000 && time < 4001)
+		C_call('S_goDown', 40, 500);
+	end
           
     post_cycle;    
 end
