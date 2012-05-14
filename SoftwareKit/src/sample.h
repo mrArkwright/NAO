@@ -6,5 +6,7 @@ public:
 
 	Sample (){};
 
-	static void goDown(const float& height, const int& time);
+	static void moveUpperBody(const float& dx, const float& dy, const float& dz, const int& time);
+	static void statBalance(const int& time);
+	static void moveFoot(const float& heigth, const int& time);
 };
