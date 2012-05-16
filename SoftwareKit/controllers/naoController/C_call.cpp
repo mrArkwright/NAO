@@ -28,14 +28,21 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
 	}
 	else if (!strcmp(method, "S_statBalance"))
 	{
-		int time = (int) mxGetScalar(prhs[1]);
-		Sample::statBalance(time);
+		bool moveRightFootFlag = (bool) mxGetScalar(prhs[1]);
+		int time = (int) mxGetScalar(prhs[2]);
+		Sample::statBalance(moveRightFootFlag, time);
 	} 
 	else if (!strcmp(method, "S_moveFoot"))
 	{
 		float heigth = (float) mxGetScalar(prhs[1]);
 		int time = (int) mxGetScalar(prhs[2]);
 		Sample::moveFoot(heigth,time);
+	}
+	else if (!strcmp(method, "S_moveLArm"))
+	{
+		float angle = (float) mxGetScalar(prhs[1]);
+		int time = (int) mxGetScalar(prhs[2]);
+		Sample::moveLArm(angle, time);
 	}
    
     

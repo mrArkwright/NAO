@@ -51,13 +51,24 @@ while wb_robot_step(TIME_STEP) ~= -1
   
   if (~manual_mode_flag) && (time-time_entering_automode > 100) && (time-time_entering_automode < 2000)
     disp 'calling statBalance...'
-    C_call('S_statBalance',500)
+    C_call('S_statBalance',true,100)
   end
   
-  if (~manual_mode_flag) && (time-time_entering_automode == 3000)
+  if (~manual_mode_flag) && (time-time_entering_automode > 2000)
+    disp 'calling statBalance...'
+    C_call('S_statBalance',false,100)
+  end
+  
+  if (~manual_mode_flag) && (time-time_entering_automode == 2000)
     disp 'calling moveFoot...'
     C_call('S_moveFoot',50,500)
   end
+  
+  if (~manual_mode_flag) && (time-time_entering_automode == 3000)
+    disp 'calling moveLArm...'
+    C_call('S_moveLArm',60 ,500)
+  end
+  
   
   key = wb_robot_keyboard_get_key();
   if key ~= 0

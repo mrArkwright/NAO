@@ -47,7 +47,7 @@ void Sample::moveFoot(const float& heigth, const int& time){
 	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, rLegAngles);
 }
 
-void Sample::statBalance(const int& time){
+void Sample::statBalance( const bool& moveRightFootFlag, const int& time){
 	// store left foot information
 	KinematicMatrix leftFoot = Blackboard::getKinematicMatrix(JOINTS::L_FOOT);
 	// store right foot information
@@ -78,5 +78,15 @@ void Sample::statBalance(const int& time){
 	
 	// send commands
 	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_L_LEG), "ClearAll", time, lLegAngles);
-	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, rLegAngles);
+	if (moveRightFootFlag){
+		DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, rLegAngles);
+	}
+}
+
+void Sample::moveLArm(const float& angle,const int& time){
+	std::vector<float> LArmAngles = Blackboard::getJointAngles("LArm");
+
+	LArmAngles[1] += angle * 3.14/180;
+
+	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_L_ARM), "ClearAll", time, LArmAngles);
 }
