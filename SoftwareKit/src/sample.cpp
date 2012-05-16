@@ -54,15 +54,23 @@ void Sample::statBalance(const int& time){
 	KinematicMatrix rightFoot = Blackboard::getKinematicMatrix(JOINTS::R_FOOT);
 	float foot_distance = abs(leftFoot.posV.y - rightFoot.posV.y);
 
+	KinematicMatrix Com2Torso(Com::getComBody());
+
 	KinematicMatrix Torso2LFoot = leftFoot.invert();
 	KinematicMatrix Torso2RFoot = rightFoot.invert();
 
-	Torso2LFoot.posV.y = 0;
-	//Torso2LFoot.rotM *= RotationMatrix::rotX(45*3.14/180);		//funktioniert noch nicht, aus sicht der hüfte drehen??
-	Torso2RFoot.posV.y = foot_distance;
+	KinematicMatrix Com2LFoot = Torso2LFoot * Com2Torso;
+	KinematicMatrix Com2RFoot = Torso2RFoot * Com2Torso;
 
-	leftFoot = Torso2LFoot.invert();
-	rightFoot = Torso2RFoot.invert();
+	Com2LFoot.posV.y = 0;
+	//Torso2LFoot.rotM *= RotationMatrix::rotX(45*3.14/180);		//funktioniert noch nicht, aus sicht der hüfte drehen??
+	Com2RFoot.posV.y = foot_distance;
+
+	KinematicMatrix LFoot2Com = Com2LFoot.invert();
+	KinematicMatrix RFoot2Com = Com2RFoot.invert();
+
+	leftFoot = Com2Torso * LFoot2Com;
+	rightFoot = Com2Torso * RFoot2Com;
 
 	// calculate new leg angles
 	std::vector<float> lLegAngles = InverseKinematics::getLLegAngles(leftFoot);
