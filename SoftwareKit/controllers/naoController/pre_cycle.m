@@ -15,7 +15,7 @@
     C_call('BB_updateKinematicMatrices');
     
     % update center of mass in Blackboard
-    C_call('BB_updateComBody');
+    C_call('BB_updateCom');
     
     
     % read sensor-data
