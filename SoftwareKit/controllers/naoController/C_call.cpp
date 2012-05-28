@@ -16,16 +16,33 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
     char *method = mxArrayToString(prhs[0]);
     
     
-    /*---------------------------------------
-     *---------------------------------------
-     *          own mex 
-     *---------------------------------------
-     *---------------------------------------*/
+    // own mex 
 	
-	if (!strcmp(method, "S_goDown")) {
+	if (!strcmp(method, "S_moveUpperBody"))
+	{
+		float dx = (float) mxGetScalar(prhs[1]);
+		float dy = (float) mxGetScalar(prhs[2]);
+		float dz = (float) mxGetScalar(prhs[3]);
+		int time = (int) mxGetScalar(prhs[4]);
+		Sample::moveUpperBody(dx,dy,dz, time);
+	}
+	else if (!strcmp(method, "S_statBalance"))
+	{
+		bool moveRightFootFlag = (bool) mxGetScalar(prhs[1]);
 		int time = (int) mxGetScalar(prhs[2]);
-		float height = (float) mxGetScalar(prhs[1]);
-		Sample::goDown(height, time);
+		Sample::statBalance(moveRightFootFlag, time);
+	} 
+	else if (!strcmp(method, "S_moveFoot"))
+	{
+		float heigth = (float) mxGetScalar(prhs[1]);
+		int time = (int) mxGetScalar(prhs[2]);
+		Sample::moveFoot(heigth,time);
+	}
+	else if (!strcmp(method, "S_moveLArm"))
+	{
+		float angle = (float) mxGetScalar(prhs[1]);
+		int time = (int) mxGetScalar(prhs[2]);
+		Sample::moveLArm(angle, time);
 	}
    
     
@@ -47,7 +64,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
     /*-------------------------------------
      *  setting time
      *-------------------------------------*/
-    if (!strcmp(method, "BB_updateTime"))
+    else if (!strcmp(method, "BB_updateTime"))
     {
         int time = (int) mxGetScalar(prhs[1]);
         Blackboard::updateTime(time);
@@ -242,7 +259,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
     /*-------------------------------------
      * calculation of left leg angles
      *-------------------------------------*/
-    if (!strcmp(method, "IK_getLLegAngles"))
+    else if (!strcmp(method, "IK_getLLegAngles"))
     {
         double *inPtr = mxGetPr(prhs[1]);
         
@@ -270,7 +287,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
     /*-------------------------------------
      * calculation of right leg angles
      *-------------------------------------*/
-    if (!strcmp(method, "IK_getRLegAngles"))
+    else if (!strcmp(method, "IK_getRLegAngles"))
     {
        double *inPtr = mxGetPr(prhs[1]);
         
@@ -299,7 +316,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
      * calculation of left leg angles
      * with fixed HipYawPitch
      *-------------------------------------*/
-    if (!strcmp(method, "IK_getFixedLLegAngles"))
+    else if (!strcmp(method, "IK_getFixedLLegAngles"))
     {
        double *inPtr = mxGetPr(prhs[1]);
        float hyp = (float) mxGetScalar(prhs[2]);
@@ -328,7 +345,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
      * calculation of right leg angles
      * with fixed HipYawPitch
      *-------------------------------------*/
-    if (!strcmp(method, "IK_getFixedRLegAngles"))
+    else if (!strcmp(method, "IK_getFixedRLegAngles"))
     {
        double *inPtr = mxGetPr(prhs[1]);
        float hyp = (float) mxGetScalar(prhs[2]);
@@ -356,7 +373,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
     /*-------------------------------------
      * calculation of left arm angles
      *-------------------------------------*/
-    if (!strcmp(method, "IK_getLArmAngles"))
+    else if (!strcmp(method, "IK_getLArmAngles"))
     {
        double *inPtr = mxGetPr(prhs[1]);
                
@@ -384,7 +401,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
     /*-------------------------------------
      * calculation of right arm angles
      *-------------------------------------*/
-    if (!strcmp(method, "IK_getRArmAngles"))
+    else if (!strcmp(method, "IK_getRArmAngles"))
     {
        double *inPtr = mxGetPr(prhs[1]);
                
@@ -420,7 +437,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
     /*-------------------------------------
      * setting DCM Time
      *-------------------------------------*/
-    if (!strcmp(method, "DCM_setTime"))
+    else if (!strcmp(method, "DCM_setTime"))
     {
        int time = (int) mxGetScalar(prhs[1]);
        
@@ -430,7 +447,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
     /*-------------------------------------
      * setting DCM Time
      *-------------------------------------*/
-    if (!strcmp(method, "DCM_init"))
+    else if (!strcmp(method, "DCM_init"))
     {
        DcmEngine::initialize(vector<float>(26));       
     }
@@ -439,7 +456,7 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
      * update commands
      *-------------------------------------*/
    
-    if (!strcmp(method, "DCM_updateCommands"))
+    else if (!strcmp(method, "DCM_updateCommands"))
     {       
         vector<float> commands = DcmEngine::updateCommands();
         plhs[0] = mxCreateDoubleMatrix((int) commands.size(),1,mxREAL);
@@ -492,7 +509,12 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
         
         // send
         DcmEngine::setAlias(commands);
-    }    
+    } 
+	//detektion von aufrufen mit nicht existierendem namen, nicht möglich da die init funktionen aufruft, die nicht exisitieren
+	/*else {
+		//method called with nonexisting name, throw exception
+		throw "mex method does not exist!";
+	} */
 }
 
 
