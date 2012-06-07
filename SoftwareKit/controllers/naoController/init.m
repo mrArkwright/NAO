@@ -20,6 +20,9 @@ wb_gyro_enable(gyro, TIME_STEP);
 gps = wb_robot_get_device('gps');
 wb_gps_enable(gps, TIME_STEP);
 
+compass = wb_robot_get_device('compass');
+wb_compass_enable(compass, TIME_STEP);
+
 % sonar
 sonar(USTopRight)    = wb_robot_get_device('USSensor1');
 sonar(USTopLeft)     = wb_robot_get_device('USSensor3');
