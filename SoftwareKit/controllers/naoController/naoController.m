@@ -49,15 +49,15 @@ while wb_robot_step(TIME_STEP) ~= -1
   
   pre_cycle;
   
-  if (~manual_mode_flag) && (time-time_entering_automode > 100) && (time-time_entering_automode < 2000)
+  if (~manual_mode_flag) && (time-time_entering_automode == 1000)
     disp 'calling statBalance...'
-    C_call('S_statBalance',true,100)
+    C_call('S_statBalance',true,500)
   end
   
-  if (~manual_mode_flag) && (time-time_entering_automode > 2000)
-    disp 'calling statBalance...'
-    C_call('S_statBalance',false,100)
-  end
+%  if (~manual_mode_flag) && (time-time_entering_automode > 2000)
+%    disp 'calling statBalance...'
+%    C_call('S_statBalance',false,100)
+%  end
   
   if (~manual_mode_flag) && (time-time_entering_automode == 2000)
     disp 'calling moveFoot...'
