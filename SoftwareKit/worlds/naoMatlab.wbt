@@ -11,8 +11,8 @@ WorldInfo {
   runRealTime TRUE
 }
 Viewpoint {
-  orientation 0.0746466 -0.992844 -0.0932144 4.50016
-  position -1.24943 0.479667 -0.179702
+  orientation 0.081432 -0.982582 -0.167036 4.04345
+  position -1.27395 0.771657 -0.878763
   follow "webots1"
 }
 Background {

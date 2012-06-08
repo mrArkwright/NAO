@@ -83,7 +83,7 @@ void Sample::moveFoot(const float& heigth, const int& time){
 	}
 }*/
 
-void Sample::statBalance(const int& time) {
+void Sample::statBalance(const bool& moveRightFootFlag, const int& time) {
 	vector<float> jointAngles = Blackboard::getJointAngles("");
 	vector<float> jointAnglesLLeg = Blackboard::getJointAngles("LLeg");
 	vector<float> jointAnglesRLeg = Blackboard::getJointAngles("RLeg");
@@ -118,13 +118,13 @@ void Sample::statBalance(const int& time) {
 		
 		for (int j = 0; j < 6; j++) {
 			jointAngles[8 + j] = jointAnglesLLeg[j];
-			jointAngles[14 + j] = jointAnglesRLeg[j];
+			if (moveRightFootFlag) jointAngles[14 + j] = jointAnglesRLeg[j];
 		}
 	}
 	
 	// send commands
 	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_L_LEG), "ClearAll", time, jointAnglesLLeg);
-	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, jointAnglesRLeg);
+	if (moveRightFootFlag) DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, jointAnglesRLeg);
 }
 
 void Sample::moveLArm(const float& angle,const int& time){

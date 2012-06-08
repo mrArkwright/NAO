@@ -49,9 +49,16 @@ while wb_robot_step(TIME_STEP) ~= -1
   
   pre_cycle;
   
+  %auf beiden füßen stehend den schwerpunkt über den fuß schieben
   if (~manual_mode_flag) && (time-time_entering_automode == 1000)
     disp 'calling statBalance...'
     C_call('S_statBalance',true,500)
+  end
+  
+  %nachführen des schwerpunkts
+  if (~manual_mode_flag) && ((time-time_entering_automode == 2500) || (time-time_entering_automode == 3500))
+    disp 'calling statBalance...'
+    C_call('S_statBalance',false,500)
   end
   
 %  if (~manual_mode_flag) && (time-time_entering_automode > 2000)
