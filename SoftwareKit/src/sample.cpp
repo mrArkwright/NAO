@@ -29,14 +29,16 @@ void Sample::moveUpperBody(const float& dx, const float& dy, const float& dz, co
 	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, rLegAngles);
 }
 
-void Sample::moveFoot(const float& heigth, const int& time){
+void Sample::moveFoot(const float& x, const float& y, const float& z, const int& time){
 	// store left foot information
 	KinematicMatrix leftFoot = Blackboard::getKinematicMatrix(JOINTS::L_FOOT);
 	// store right foot information
 	KinematicMatrix rightFoot = Blackboard::getKinematicMatrix(JOINTS::R_FOOT);
 	
 	// move the foot
-	rightFoot.posV.z += heigth;
+	rightFoot.posV.x += x;
+	rightFoot.posV.y += y;
+	rightFoot.posV.z += z;
 	
 	// calculate new leg angles
 	std::vector<float> lLegAngles = InverseKinematics::getLLegAngles(leftFoot);

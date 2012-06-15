@@ -61,7 +61,7 @@ while wb_robot_step(TIME_STEP) ~= -1
   %Fuß heben
   if (~manual_mode_flag) && (rel_time == 2000)
     disp 'calling moveFoot...'
-    C_call('S_moveFoot',25,500)
+    C_call('S_moveFoot',0,0,30,500)
   end
 
   %nachführen des schwerpunkts

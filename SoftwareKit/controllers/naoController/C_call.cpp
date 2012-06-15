@@ -35,9 +35,11 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
 	} 
 	else if (!strcmp(method, "S_moveFoot"))
 	{
-		float heigth = (float) mxGetScalar(prhs[1]);
-		int time = (int) mxGetScalar(prhs[2]);
-		Sample::moveFoot(heigth,time);
+		float x = (float) mxGetScalar(prhs[1]);
+		float y = (float) mxGetScalar(prhs[2]);
+		float z = (float) mxGetScalar(prhs[3]);
+		int time = (int) mxGetScalar(prhs[4]);
+		Sample::moveFoot(x,y,z,time);
 	}
 	else if (!strcmp(method, "S_moveLArm"))
 	{
