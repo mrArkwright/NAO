@@ -10,4 +10,5 @@ public:
 	static void statBalance(const bool& moveRightFootFlag, const int& time);
 	static void moveFoot(const float& heigth, const int& time);
 	static void moveLArm(const float& angle, const int& time);
+	static void swingLegBack(const float& phi, const int& time);
 };

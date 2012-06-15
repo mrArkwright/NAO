@@ -47,6 +47,14 @@ void Sample::moveFoot(const float& heigth, const int& time){
 	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, rLegAngles);
 }
 
+void Sample::swingLegBack(const float& phi, const int& time){
+	vector<float> jointAnglesRLeg = Blackboard::getJointAngles("RLeg");
+	
+	jointAnglesRLeg[2] += phi*3.14/180;
+	
+	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, jointAnglesRLeg);
+}
+
 /*void Sample::statBalance( const bool& moveRightFootFlag, const int& time){
 	// store left foot information
 	KinematicMatrix leftFoot = Blackboard::getKinematicMatrix(JOINTS::L_FOOT);

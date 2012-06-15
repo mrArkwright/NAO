@@ -20,17 +20,12 @@ constants;
 wb_robot_init();
 init;
 
-%% Main Loop
-
-% main loop:
-% perform simulation steps of TIME_STEP milliseconds
-% and leave the loop when Webots signals the termination
-
 wb_robot_keyboard_enable(TIME_STEP);
 disp 'select the simulation window'
 disp 'shift the upper body around by pressing the arrowkeys and q,e'
 disp 'switch into automatic mode by pressing a'
 
+manual_velocity=20;
 manual_mode_flag=false;
 if manual_mode_flag
   disp 'manual mode...'
@@ -40,7 +35,9 @@ end
 time_entering_automode=0;
 
 
-manual_velocity=20;
+% Test: initialisieren der Kamera
+%   cam = wb_robot_get_device('camera');
+%   wb_camera_enable(cam, TIME_STEP);
 
 while wb_robot_step(TIME_STEP) ~= -1
   
@@ -49,34 +46,48 @@ while wb_robot_step(TIME_STEP) ~= -1
   
   pre_cycle;
   
+  %Test: Ausgabe des Kamerabildes
+  %   im = wb_camera_get_image(cam);
+  %   image(im);
+  
+  rel_time = time-time_entering_automode;
+  
   %auf beiden füßen stehend den schwerpunkt über den fuß schieben
-  if (~manual_mode_flag) && (time-time_entering_automode == 1000)
+  if (~manual_mode_flag) && (rel_time == 1000)
     disp 'calling statBalance...'
     C_call('S_statBalance',true,500)
   end
-  
+
+  %Fuß heben
+  if (~manual_mode_flag) && (rel_time == 2000)
+    disp 'calling moveFoot...'
+    C_call('S_moveFoot',25,500)
+  end
+
   %nachführen des schwerpunkts
-  if (~manual_mode_flag) && ((time-time_entering_automode == 2500) || (time-time_entering_automode == 3500))
+  if (~manual_mode_flag) && ((rel_time == 2500) || (rel_time == 3500))
     disp 'calling statBalance...'
     C_call('S_statBalance',false,500)
   end
   
-%  if (~manual_mode_flag) && (time-time_entering_automode > 2000)
-%    disp 'calling statBalance...'
-%    C_call('S_statBalance',false,100)
-%  end
-  
-  if (~manual_mode_flag) && (time-time_entering_automode == 2000)
-    disp 'calling moveFoot...'
-    C_call('S_moveFoot',50,500)
-  end
-  
-  if (~manual_mode_flag) && (time-time_entering_automode == 3000)
+  if (~manual_mode_flag) && (rel_time == 3000)
     disp 'calling moveLArm...'
     C_call('S_moveLArm',60 ,500)
   end
   
+  if (~manual_mode_flag) && (rel_time == 4000)
+    disp 'calling swingLegBack'
+    C_call('S_swingLegBack',60,500)
+  end
   
+  if (~manual_mode_flag) && (rel_time == 5000)
+    disp 'calling swingLegBack, Kick'
+    C_call('S_swingLegBack',-90,0)
+  end
+  
+  
+  
+  %keyboard input:
   key = wb_robot_keyboard_get_key();
   if key ~= 0
     if (~manual_mode_flag) && (key ~= 'A')
@@ -110,13 +121,11 @@ while wb_robot_step(TIME_STEP) ~= -1
         end
     end
   end
-  
-  
-	%if (time >= 4000 && time < 4001)
-	%	C_call('S_goDown', 40, 500);
-	%end
+
   
   post_cycle;    
 end
+
+
 
 
