@@ -61,17 +61,17 @@ while wb_robot_step(TIME_STEP) ~= -1
   %Fuß heben
   if (~manual_mode_flag) && (rel_time == 1500)
     disp 'calling moveFoot...'
-    C_call('S_moveFoot',0,0,30,500)
+    C_call('S_moveFoot',0,0,35,500)
   end
   
   if (~manual_mode_flag) && (rel_time == 2000)
     disp 'calling rotateRLeg'
-    C_call('S_rotateRLeg', 50, 50, 500)
+    C_call('S_rotateRLeg', 30, 30, 0, 500)
   end
   
   if (~manual_mode_flag) && (rel_time == 2600)
     disp 'calling swingLegBack, Kick'
-    C_call('S_rotateRLeg', -70, -80, 500)
+    C_call('S_rotateRLeg', -50, -50, 0, 500)
   end
   
   

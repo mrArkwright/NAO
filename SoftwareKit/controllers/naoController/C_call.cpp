@@ -57,8 +57,9 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
 	{
 		float a = (float) mxGetScalar(prhs[1]);
 		float b = (float) mxGetScalar(prhs[2]);
-		int time = (int) mxGetScalar(prhs[3]);
-		Sample::rotateRLeg(a, b, time);
+		float c = (float) mxGetScalar(prhs[3]);
+		int time = (int) mxGetScalar(prhs[4]);
+		Sample::rotateRLeg(a, b, c, time);
 	}
     
      /*---------------------------------------

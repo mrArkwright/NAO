@@ -57,11 +57,12 @@ void Sample::swingLegBack(const float& phi, const int& time){
 	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, jointAnglesRLeg);
 }
 
-void Sample::rotateRLeg(const float& hipAngle, const float& kneeAngle, const int& time){
+void Sample::rotateRLeg(const float& hipAngle, const float& kneeAngle, const float& hipYawAngle, const int& time) {
 	vector<float> jointAnglesRLeg = Blackboard::getJointAngles("RLeg");
 	
 	jointAnglesRLeg[2] += hipAngle*3.14/180;
 	jointAnglesRLeg[3] += kneeAngle*3.14/180;
+	jointAnglesRLeg[0] += hipYawAngle*3.14/180;
 	
 	DcmConnector::sendCommands(Alias::aliasName(Alias::JOINT_ACTUATOR_R_LEG), "ClearAll", time, jointAnglesRLeg);
 }
