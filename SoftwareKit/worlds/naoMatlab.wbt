@@ -11,8 +11,8 @@ WorldInfo {
   runRealTime TRUE
 }
 Viewpoint {
-  orientation 0.0744941 -0.980511 -0.181795 3.91361
-  position -1.63313 0.670038 -0.679444
+  orientation 0.298213 -0.892106 -0.339436 4.47545
+  position -1.76376 0.56318 -0.009461
   follow "webots1"
 }
 Background {
@@ -45,5 +45,5 @@ Goal {
 Walls {
 }
 Ball {
-  translation -2.36162 0.032473 0.0472867
+  translation -2.36462 0.032473 0.0892867
 }

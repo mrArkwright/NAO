@@ -53,7 +53,13 @@ mexFunction(int nlhs,mxArray *plhs[],int nrhs,const mxArray *prhs[])
 		int time = (int) mxGetScalar(prhs[2]);
 		Sample::swingLegBack(phi, time);
 	}
-   
+   	else if (!strcmp(method, "S_rotateRLeg"))
+	{
+		float a = (float) mxGetScalar(prhs[1]);
+		float b = (float) mxGetScalar(prhs[2]);
+		int time = (int) mxGetScalar(prhs[3]);
+		Sample::rotateRLeg(a, b, time);
+	}
     
      /*---------------------------------------
      *---------------------------------------

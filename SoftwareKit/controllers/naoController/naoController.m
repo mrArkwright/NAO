@@ -52,37 +52,26 @@ while wb_robot_step(TIME_STEP) ~= -1
   
   rel_time = time-time_entering_automode;
   
-  %auf beiden füßen stehend den schwerpunkt über den fuß schieben
+  %auf beiden fÃ¼ÃŸen stehend den schwerpunkt Ã¼ber den fuÃŸ schieben
   if (~manual_mode_flag) && (rel_time == 1000)
-    disp 'calling statBalance...'
+    disp 'calsling statBalance...'
     C_call('S_statBalance',true,500)
   end
 
-  %Fuß heben
-  if (~manual_mode_flag) && (rel_time == 2000)
+  %FuÃŸ heben
+  if (~manual_mode_flag) && (rel_time == 1500)
     disp 'calling moveFoot...'
     C_call('S_moveFoot',0,0,30,500)
   end
-
-  %nachführen des schwerpunkts
-  if (~manual_mode_flag) && ((rel_time == 2500) || (rel_time == 3500))
-    disp 'calling statBalance...'
-    C_call('S_statBalance',false,500)
+  
+  if (~manual_mode_flag) && (rel_time == 2000)
+    disp 'calling rotateRLeg'
+    C_call('S_rotateRLeg', 50, 50, 500)
   end
   
-  if (~manual_mode_flag) && (rel_time == 3000)
-    disp 'calling moveLArm...'
-    C_call('S_moveLArm',60 ,500)
-  end
-  
-  if (~manual_mode_flag) && (rel_time == 4000)
-    disp 'calling swingLegBack'
-    C_call('S_swingLegBack',60,500)
-  end
-  
-  if (~manual_mode_flag) && (rel_time == 5000)
+  if (~manual_mode_flag) && (rel_time == 2600)
     disp 'calling swingLegBack, Kick'
-    C_call('S_swingLegBack',-90,0)
+    C_call('S_rotateRLeg', -70, -80, 500)
   end
   
   
