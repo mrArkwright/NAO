@@ -9,7 +9,7 @@
 % desktop;
 % keyboard;
 
-TIME_STEP = 10;
+TIME_STEP = 5;
 
 % load enumerations
 enums;
@@ -54,24 +54,24 @@ while wb_robot_step(TIME_STEP) ~= -1
   
   %auf beiden füßen stehend den schwerpunkt über den fuß schieben
   if (~manual_mode_flag) && (rel_time == 1000)
-    disp 'calsling statBalance...'
+    disp 'statBalance...'
     C_call('S_statBalance',true,500)
   end
 
   %Fuß heben
   if (~manual_mode_flag) && (rel_time == 1500)
-    disp 'calling moveFoot...'
-    C_call('S_moveFoot',0,0,35,500)
+    disp 'raise Foot...'
+    C_call('S_moveFoot',0,-25,30,500)
   end
   
   if (~manual_mode_flag) && (rel_time == 2000)
-    disp 'calling rotateRLeg'
-    C_call('S_rotateRLeg', 30, 30, 0, 500)
+    disp 'move foot back...'
+    C_call('S_moveFoot',-40,0,0,500)
   end
   
-  if (~manual_mode_flag) && (rel_time == 2600)
-    disp 'calling swingLegBack, Kick'
-    C_call('S_rotateRLeg', -50, -50, 0, 500)
+  if (~manual_mode_flag) && (rel_time == 3000)
+    disp 'kick!'
+    C_call('S_moveFoot',200,0,0,100)
   end
   
   

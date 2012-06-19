@@ -6,13 +6,13 @@ WorldInfo {
     "Date: 20 January 2010"
   ]
   title "NaoSoccer"
-  basicTimeStep 10
+  basicTimeStep 5
   displayRefresh 1
   runRealTime TRUE
 }
 Viewpoint {
-  orientation -0.618202 0.784928 -0.0414157 6.16359
-  position -2.47732 -0.00223245 0.453987
+  orientation 0.304594 -0.810307 -0.500624 4.06064
+  position -1.85237 1.05714 -0.110945
   follow "webots1"
 }
 Background {
@@ -45,6 +45,6 @@ Goal {
 Walls {
 }
 Ball {
-  translation -2.36462 0.032473 0.0596643
+  translation -2.36462 0.032473 0.053
   centerOfMass 0 0 0
 }
