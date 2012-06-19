@@ -1,8 +1,3 @@
-% MATLAB controller for Webots
-% File:          naoController.m
-% Date:          
-% Description:   Nao Controller
-
 % Author:        Stefan Kaufmann
 % uncomment the next two lines if you want to use
 % MATLAB's desktop to interact with the controller:
@@ -10,6 +5,8 @@
 % keyboard;
 
 TIME_STEP = 5;
+
+kickAngle = 5; %degree -7..14
 
 % load enumerations
 enums;
@@ -61,7 +58,14 @@ while wb_robot_step(TIME_STEP) ~= -1
   %Fuß heben
   if (~manual_mode_flag) && (rel_time == 1500)
     disp 'raise Foot...'
-    C_call('S_moveFoot',0,-25,30,500)
+    
+    if (kickAngle <= 0)
+      deltaX = -kickAngle/(-7.63195750157995)*25;
+    else
+      deltaX = kickAngle/(14.2093727765404)*25;
+    end
+    
+    C_call('S_moveFoot',0,deltaX,30,500)
   end
   
   if (~manual_mode_flag) && (rel_time == 2000)
