@@ -54,7 +54,7 @@ public:
 		  			counter++;
 		  			Sample::statBalance(true, 500);
 		  			
-		  		} else if (diff >= 1500 && counter = 1){
+		  		} else if (diff >= 1500 && counter == 1){
 		  			
 		  			//raise Foot
 		  			counter++;
@@ -68,13 +68,13 @@ public:
 		  			
 		  			Sample::moveFoot(0, deltaX, 30, 500);
 		  			
-		  		} else if (diff >= 2000 && counter = 2) {
+		  		} else if (diff >= 2000 && counter == 2) {
 		  			
 		  			//move foot back
 					counter++;  		
 					Sample::moveFoot(-40, 0, 0, 500);
 					
-		  		} else if (diff >= 3000 && counter = 3) {
+		  		} else if (diff >= 3000 && counter == 3) {
 		  			
 		  			// kick
 		  			counter++;
