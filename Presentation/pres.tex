@@ -14,7 +14,7 @@
 \title{How NAO learns to kick the ball ...}
 \author{Jannick, André, Daniel, Florian}
 \date{11.07.2012}
-\titlegraphic{\includegraphics[scale=0.45]{nao}}
+\titlegraphic{\includegraphics[scale=0.45]{nao3}}
 
 \begin{document}
 
@@ -35,8 +35,11 @@
 \section{Einleitung}
 %% frame 3
 \begin{frame}
-	\frametitle{Ziel des Seminars}
-	
+	\frametitle{Einleitung}
+	\begin{itemize}
+		\item Arbeit mit Robotiksystemen
+		\item Implementieren einer Schussbewegung für NAO
+	\end{itemize}		
 \end{frame}
 %% frame 3
 
@@ -44,31 +47,65 @@
 %% frame 4
 \begin{frame}
 	\frametitle{Arbeitsschritte}
-	
+	\begin{enumerate}
+		\item Halten des Gleichgewichts auf einem Bein (Simulator)
+		\item Vollführen einer Schussbewegung (Simulator)
+		\item Optimieren der Schussbewegung und "übertragen" auf den NAO (Simulator, NAO)
+	\end{enumerate}
 \end{frame}
 %% frame 4
 
 \subsection{Phase 1}
 %% frame 5
 \begin{frame}
-	\frametitle{Phase 1}
-	
+	\frametitle{Phase 1 - Schwerpunkt}
+	\begin{itemize}
+		\item Einarbeiten in die API und Nutzung des Simulators Webots (naoController.m)
+		\item Verschieben des Schwerpunktes über linkes Bein (Forward Kinematic)
+		%% Forward Kinematic an der Tafel erklären
+		\item Anheben des rechten Fußes
+		\item Nachjustieren des Schwerpunktes	
+	\end{itemize}
+	\includegraphics[width=3.3cm]{nao1}
+	\includegraphics[scale=0.3]{space}
+	\includegraphics[width=3.3cm]{nao2}
+	\includegraphics[scale=0.3]{space}
+	\includegraphics[width=3.3cm]{nao3}
 \end{frame}
 %% frame 5
 
 \subsection{Phase 2}
 %% frame 6
 \begin{frame}
-	\frametitle{Phase 2}
-	
+	\frametitle{Phase 2 - Schuss}
+	\begin{itemize}
+		\item Ausgangslage:
+		\begin{itemize}
+			\item Ball liegt vor der Fußspitze des NAOs
+		\end{itemize} 		 
+		\item Die Frage nach dem "Wie" der Schussbewegung
+		\item Ziele:
+		\begin{itemize}
+			\item Ball auf mittlerer Höhe treffen
+			\item Nicht umfallen
+			\item Einen großen Impuls übertragen
+			\item Keine innere Kollision
+			%% Wie hatten wir das hier nochmal gelöst?
+			\item Einstellen des Schusswinkels
+		\end{itemize}		 		 
+	\end{itemize}
 \end{frame}
 %% frame 6
 
 \subsection{Phase 3}
 %% frame 7
 \begin{frame}
-	\frametitle{Phase 3}
-	
+	\frametitle{Phase 3 - Schuss optimieren und übertragen auf den NAO}
+	\begin{itemize}
+		\item Genauere Schusswinkeleinstellung (Interpolation der Fußform)
+		\item Übertragen des naoController (Matlab) in C++
+		\item Test auf dem Roboter
+	\end{itemize}
 \end{frame}
 %% frame 7	
 
@@ -76,7 +113,12 @@
 %% frame 8
 \begin{frame}
 	\frametitle{Ergebnis und Ausblick}
-	
+	\begin{itemize}
+		\item TuhhSDK und vorhandene Projektstruktur erleichtern Einarbeitung
+		\item Implementierung der Schussbewegung als einzelnes Modul
+		\item Eingeschränkter Schusswinkel
+		\item Nächster nötiger Arbeitsschritt: erkennen, annähern und positionieren vor dem Ball  
+	\end{itemize}
 \end{frame}
 %% frame 8
 
