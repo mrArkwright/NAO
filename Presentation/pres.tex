@@ -5,9 +5,9 @@
 \usepackage{amsmath,amsfonts,amssymb}
 
 \usetheme{Frankfurt}
-\usecolortheme{beaver}
+\usecolortheme{default} % % beaver
 \usefonttheme{default}
-\useinnertheme{rounded}
+\useinnertheme{rounded} % % default
 \useoutertheme{default}
 \usepackage{graphicx}
 
@@ -48,23 +48,21 @@
 \begin{frame}
 	\frametitle{Arbeitsschritte}
 	\begin{enumerate}
-		\item Halten des Gleichgewichts auf einem Bein (Simulator)
+		\item Statisches Gleichgewicht auf einem Bein (Simulator)
 		\item Vollführen einer Schussbewegung (Simulator)
-		\item Optimieren der Schussbewegung und "übertragen" auf den NAO (Simulator, NAO)
+		\item "'Übertragen"' auf den NAO (Simulator, NAO)
 	\end{enumerate}
 \end{frame}
 %% frame 4
 
 \subsection{Phase 1}
-%% frame 5
+%% frame 5a
 \begin{frame}
 	\frametitle{Phase 1 - Schwerpunkt}
 	\begin{itemize}
 		\item Einarbeiten in die API und Nutzung des Simulators Webots (naoController.m)
-		\item Verschieben des Schwerpunktes über linkes Bein (Forward Kinematic)
-		%% Forward Kinematic an der Tafel erklären
-		\item Anheben des rechten Fußes
-		\item Nachjustieren des Schwerpunktes	
+		\item Verschieben des Schwerpunktes über linkes Bein (ForwardKinematics, InverseKinematics)
+		\item Anheben des rechten Fußes	
 	\end{itemize}
 	\includegraphics[width=3.3cm]{nao1}
 	\includegraphics[scale=0.3]{space}
@@ -72,10 +70,40 @@
 	\includegraphics[scale=0.3]{space}
 	\includegraphics[width=3.3cm]{nao3}
 \end{frame}
-%% frame 5
+%% frame 5a 
+
+% % frame 5b 
+\begin{frame}
+	\frametitle{Schwerpunktverschiebung}
+	\begin{columns}
+
+		\column{0.3\textwidth}
+		\includegraphics[width=4.7cm]{comtorso}
+		\newline\newline
+		\includegraphics[width=4.7cm]{comfoot}
+		
+		\column{0.7\textwidth}
+		Pseudo-Code:
+		\newline\newline
+		%% Aus dem blackboard holen
+		$get: KinematicMatrix$ $XFoot$
+		$get: KinematicMatrix$ $Com2Torso$
+		\newline\newline
+		$Torso2XFoot = XFoot^{-1}$	
+		$Com2XFoot = Torso2XFoot \cdot Com2Torso$					
+		\newline\newline
+		$set$ $y$ $and$ $x$ $coordinates$
+		\newline\newline
+		$XFoot2Com = Com2XFoot^{-1}$
+		$XFoot = Com2Torso * XFoot2Com$
+		\newline\newline
+		$get$ $angles$ $via$ $InverseKinematics$
+	\end{columns}
+\end{frame}
+% % frame 5b
 
 \subsection{Phase 2}
-%% frame 6
+%% frame 6a
 \begin{frame}
 	\frametitle{Phase 2 - Schuss}
 	\begin{itemize}
@@ -95,16 +123,29 @@
 		\end{itemize}		 		 
 	\end{itemize}
 \end{frame}
-%% frame 6
+%% frame 6a
+
+%% frame 6b
+\begin{frame}
+	\frametitle{Einstellen des Schusswinkels und der Fußposition}
+	\begin{center}
+	\includegraphics[width=3.3cm]{shootside}
+	\includegraphics[scale=0.3]{space}
+	\includegraphics[width=3.3cm]{shootfrontinner}
+	\includegraphics[scale=0.3]{space}
+	\includegraphics[width=3.3cm]{shhotfrontouter}
+	\end{center}
+\end{frame}
+%% frame 6b 
 
 \subsection{Phase 3}
 %% frame 7
 \begin{frame}
 	\frametitle{Phase 3 - Schuss optimieren und übertragen auf den NAO}
 	\begin{itemize}
-		\item Genauere Schusswinkeleinstellung (Interpolation der Fußform)
 		\item Übertragen des naoController (Matlab) in C++
 		\item Test auf dem Roboter
+		\item Idee: Genauere Schusswinkeleinstellung (Interpolation der Fußform), aber Praxistest zeigt, dass noch weitere Parameter wichtig sind.
 	\end{itemize}
 \end{frame}
 %% frame 7	
@@ -117,7 +158,7 @@
 		\item TuhhSDK und vorhandene Projektstruktur erleichtern Einarbeitung
 		\item Implementierung der Schussbewegung als einzelnes Modul
 		\item Eingeschränkter Schusswinkel
-		\item Nächster nötiger Arbeitsschritt: erkennen, annähern und positionieren vor dem Ball  
+		\item Nächster nötiger Arbeitsschritt: genauere Schusswinkelbestimmung (und erkennen, annähern und positionieren vor dem Ball)  
 	\end{itemize}
 \end{frame}
 %% frame 8
@@ -126,7 +167,9 @@
 %% frame 9
 \begin{frame}
 	\frametitle{Präsentation}
-	
+	\begin{center}
+		\includegraphics[scale=0.5]{football}
+	\end{center}
 \end{frame}
 %% frame 9
 	
