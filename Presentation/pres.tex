@@ -86,8 +86,8 @@
 		Pseudo-Code:
 		\newline\newline
 		%% Aus dem blackboard holen
-		$get: KinematicMatrix$ $XFoot$
-		$get: KinematicMatrix$ $Com2Torso$
+		$KinematicMatrix$ $XFoot$
+		$KinematicMatrix$ $Com2Torso$
 		\newline\newline
 		$Torso2XFoot = XFoot^{-1}$	
 		$Com2XFoot = Torso2XFoot \cdot Com2Torso$					
@@ -95,7 +95,7 @@
 		$set$ $y$ $and$ $x$ $coordinates$
 		\newline\newline
 		$XFoot2Com = Com2XFoot^{-1}$
-		$XFoot = Com2Torso * XFoot2Com$
+		$XFoot = Com2Torso \cdot XFoot2Com$
 		\newline\newline
 		$get$ $angles$ $via$ $InverseKinematics$
 	\end{columns}
